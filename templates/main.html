@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% block content %}
+    {% endblock content %}
+    
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://unpkg.com/moment"></script>
+
+<script>
+    
+    $(function(){
+        
+
+        var ws_schenme  = window.location.protocol == "https:" ? "wss" : "ws"
+        
+        var ws_path = ws_schenme + "://" + window.location.host + "/notif/" 
+        console.log(ws_path)
+        var websocket = new WebSocket(ws_path)
+
+        
+        // hasil dari boradcast websocket di tampilkan 
+        websocket.onmessage = function(e){
+            console.log(e.data)
+            $('#notification').append("<li>"+ e.data +"</li>")
+        }
+
+        // connect dan post data di websocket 
+        websocket.onopen = function(e){
+            console.log('open', e)
+        }
+
+
+        
+        websocket.onerror = function(e){
+            console.log("error",e)
+        }
+
+
+
+    })
+</script>
+
+</html>
+

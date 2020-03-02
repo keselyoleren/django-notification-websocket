@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    {% for item in notif %}
+        <li>{{ item.notif }}</li>
+        <div id="notification"></div>
+    {% endfor %}
+{% endblock  %}
+    
